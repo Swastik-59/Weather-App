@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif, sans-serif;
+    color: white;
+    font-weight: 600;
+}
+
+body {
+    background: url("images/aa72913855f9e02a949a5c392b48299e.jpg");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: none;
+    z-index: 0;
+}
+
+.regular-txt{
+    font-weight: 400;
+}
+
+.first {
+    margin: 30px 0 40px;
+    width: 500px;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(0, 0, 0, 0.15), rgb(255, 255, 255, 0.15));
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(15px);
+}
+
+.second {
+    width: 1000px;
+    height: 200px;
+    z-index: 1;
+    margin-bottom: 40px;
+    background: transparent;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.input{
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.city-input{
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background: rgb(0, 0, 0, 0.15);
+    outline: none;
+    font-weight: 500;
+    transition: 0.25s border;
+    padding-right: 45px;
+}
+
+.city-input:focus{
+    border: 3px solid rgb(0, 0, 0, 0.15);
+}
+
+.city-input::placeholder{
+    color: rgb(255, 255, 255, 0.75);
+}
+
+.search-btn{
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+}
+
+.weather-info{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.location-date{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.weather-summary-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-summary-img{
+    width: 120px;
+    height: 120px;
+    transition: 1s;
+}
+.weather-summary-img:hover{
+    transform: scale(1.2);
+    z-index: 2;
+}
+
+.weather-summary-info{
+    text-align: end;
+}
+
+.weather-conditions-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.condition-item{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.condition-item span{
+    font-size: 30px;
+}
+
+.forecast-items-container{
+    display: flex;
+    gap: 25px;
+}
+
+.forecast-item{
+    min-width: 80px;
+    background: linear-gradient(to top, rgb(0, 0, 0, 0.15), rgb(255, 255, 255, 0.15));
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    align-items: center;
+    border-radius: 12px;
+    backdrop-filter: blur(15px);
+    transition: 0.3s background;
+    transition: 1.5s transform z-index;
+}
+.forecast-item:hover{
+    background: rgb(255, 255, 255, 0.15);
+    transform: scale(1.2);
+    z-index: 2;
+}
+
+.section-message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+.section-message img{
+    height: 180px;
+    width: fit-content;
+}
+
+
+@media (max-width: 1024px) {
+    body {
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    body::before {
+        height: 100vh;
+    }
+
+    .first {
+        width: 80%;
+        height: auto;
+    }
+
+    .second {
+        width: 90%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 30px;
+    }
+
+    .forecast-item {
+        min-width: 70px;
+    }
+
+    .weather-summary-img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    body::before {
+        height: 100vh;
+    }
+
+    .first {
+        width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .second {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .forecast-items-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .weather-summary-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .city-input {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .search-btn {
+        right: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="first">
+            <header class="input">
+                <input type="text" class="city-input" placeholder="Search City">
+                <button class="search-btn">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+            </header>
+
+            <section class="weather-info" style="display: none;">
+                <div class="location-date">
+                    <div class="location">
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
+                        <h4 class="country-txt">Jakarta</h4>
+                    </div>
+                    <h5 class="current-date-txt regular-txt">Wed, 25 Sep</h5>
+                </div>
+
+                <div class="weather-summary-container">
+                    <img src="weather-svgs/clouds.svg" alt="" class="weather-summary-img">
+                    <div class="weather-summary-info">
+                        <h1 class="temp-txt">29 °C</h1>
+                        <h3 class="condition-txt regular-txt">Clouds</h3>
+                    </div>
+                </div>
+                <div class="weather-conditions-container">
+                    <div class="condition-item">
+                        <span class="material-symbols-outlined">
+                            water_drop
+                        </span>
+                        <div class="condition-info">
+                            <h5 class="regular-txt">humidity</h5>
+                            <h5 class="humidity-value-txt">55%</h5>
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <span class="material-symbols-outlined">
+                            air
+                        </span>
+                        <div class="condition-info">
+                            <h5 class="regular-txt">Wind Speed</h5>
+                            <h5 class="wind-value-txt">2 Km/hr</h5>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="search-city section-message">
+                <img src="Messages/search-city.png">
+                <div>
+                    <h1>Search City</h1>
+                    <h4 class="regular-txt">
+                        Find out the Weather Conditions of the city
+                    </h4>
+                </div>
+            </section>
+
+            <section class="not-found section-message" style="display: none;">
+                <img src="Messages/not-found.png">
+                <div>
+                    <h1>Search City</h1>
+                    <h4 class="regular-txt">
+                        Find out the Weather Conditions of the city
+                    </h4>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="second">  
+            <div class="forecast-items-container" style="display: none;">
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">26 Sep</h5>
+                    <img src="weather-svgs/thunderstorm.svg" class="forcast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const cityInput = document.querySelector('.city-input')
+const searchBtn = document.querySelector('.search-btn')
+
+const weatherInfoSection = document.querySelector('.weather-info')
+const notFoundSection = document.querySelector('.not-found')
+const searchCitySection = document.querySelector('.search-city')
+
+const countryTxt = document.querySelector('.country-txt')
+const tempTxt = document.querySelector('.temp-txt')
+const conditionTxt = document.querySelector('.condition-txt')
+const humidityValueTxt = document.querySelector('.humidity-value-txt')
+const windValueTxt = document.querySelector('.wind-value-txt')
+const weatherSummaryImg = document.querySelector('.weather-summary-img')
+const currentDateTxt = document.querySelector('.current-date-txt')
+
+const forecastItemsSection = document.querySelector('.forecast-items-container')
+const forcastItemsContainer = document.querySelector('.forecast-items-container')
+
+const apiKey = '4ba9b888560733e4e2a8db4b826e2df5'
+
+searchBtn.addEventListener('click', () => {
+    if(cityInput.value.trim() != '') {
+        updateWeatherInfo(cityInput.value)
+        cityInput.value = ''
+        cityInput.blur()
+    }
+})
+
+cityInput.addEventListener('keydown', (event) => {
+    if(event.key == 'Enter' && cityInput.value.trim() != ''){
+        updateWeatherInfo(cityInput.value)
+        cityInput.value = ''
+        cityInput.blur()
+    }
+})
+
+async function getFetchData(endPoint, city) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${apiKey}&units=metric`
+
+    const response = await fetch(apiUrl)
+    return response.json()
+}
+
+function getWeatherIcon(main) {
+    if(main == 'Clouds') return 'clouds.svg'
+    if(main == 'Drizzle') return 'drizzle.svg'
+    if(main == 'Rain') return 'rain.svg'
+    if(main == 'Snow') return 'snow.svg'
+    if(main == 'Mist') return 'atmosphere.svg'
+    if(main == 'Clear') return 'clear.svg'
+    if(main == 'Mist') return 'rain.svg'
+    else return 'thunderstorm.svg'
+}
+
+function getCurrentDate(){
+    const currentDate = new Date()
+    const options = {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short'
+    }
+
+    return currentDate.toLocaleDateString('en-GB', options)
+}
+
+async function updateWeatherInfo(city) {
+    const weatherData = await getFetchData('weather', city)
+    if(weatherData.cod != 200){
+        showDisplaySection(notFoundSection)
+        return
+    }
+
+    const {
+        name : country,
+        main : { temp, humidity },
+        weather : [{ id, main }],
+        wind : { speed }
+    } = weatherData
+
+    countryTxt.textContent = country
+    tempTxt.textContent = Math.round(temp) + ' °C'
+    conditionTxt.textContent = main
+    humidityValueTxt.textContent = humidity + '%'
+    windValueTxt.textContent = speed + ' Km/hr'
+
+    currentDateTxt.textContent = getCurrentDate()
+    weatherSummaryImg.src = `weather-svgs/${getWeatherIcon(main)}`
+    
+    changeWeatherBackground(main);
+    
+    await updateForecastsInfo(city)
+    showDisplaySection(weatherInfoSection)
+}
+
+async function updateForecastsInfo(city){
+    const forecastsData = await getFetchData('forecast', city)
+
+    const timeTaken = '12:00:00'
+    const todayDate = new Date().toISOString().split('T')[0]
+
+    forcastItemsContainer.innerHTML = ''
+    forecastsData.list.forEach(forecastWeather => {
+        if(forecastWeather.dt_txt.includes(timeTaken) && !forecastWeather.dt_txt.includes(todayDate)){
+            updateForecastsItems(forecastWeather)
+        }
+    })
+}
+
+function updateForecastsItems(weatherData){
+    const{
+        dt_txt: date,
+        weather: [{ id, main }],
+        main: { temp }
+    } = weatherData
+
+    const dateTaken = new Date(date)
+    const dateOption = {
+        day: '2-digit',
+        month: 'short'
+    }
+    const dateResult = dateTaken.toLocaleDateString('en-US', dateOption)
+
+    const forecastItem = `
+        <div class="forecast-item">
+            <h5 class="forecast-item-date regular-txt">${dateResult}</h5>
+            <img src="weather-svgs/${getWeatherIcon(main)}" class="forcast-item-img">
+            <h5 class="forecast-item-temp">${Math.round(temp)} °C</h5>
+        </div>
+    `
+    forcastItemsContainer.insertAdjacentHTML('beforeend', forecastItem)
+}
+
+function showDisplaySection(section){
+    [weatherInfoSection, searchCitySection, notFoundSection, forecastItemsSection]
+        .forEach(section => section.style.display = 'none')
+    
+    if (section === weatherInfoSection) {
+        forecastItemsSection.style.display = 'flex';
+    } else {
+        forecastItemsSection.style.display = 'none';
+    }
+    section.style.display = 'flex'
+}
+
+function getWeatherBg(main) {
+
+    if(main == 'Clouds') return 'images/clouds.gif'
+    if(main == 'Drizzle') return 'images/drizzle.gif'
+    if(main == 'Rain') return 'images/rain.gif'
+    if(main == 'Snow') return 'images/snow.gif'
+    if(main == 'Mist') return 'images/mist.gif'
+    if(main == 'Clear') return 'images/aa72913855f9e02a949a5c392b48299e.jpg'
+    if(main == 'Mist') return 'images/rain.gif'
+    if(main == 'Haze') return 'images/haze.webp'
+    else return 'images/thunderstorm.gif'
+}
+
+function changeWeatherBackground(weatherMain) {
+    const bgImage = getWeatherBg(weatherMain);
+    document.body.style.backgroundImage = `url(${bgImage})`;
+}
+
+    </script>
+</body>
+</html>
